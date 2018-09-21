@@ -1,0 +1,2379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:ds="http://www.w3.org/2000/09/xmldsig#"
+        elementFormDefault="qualified"
+        xmlns="http://www.sifen.gov.py/si"
+        targetNamespace="http://www.sifen.gov.py/si">
+
+    <xs:import namespace="http://www.w3.org/2000/09/xmldsig#"
+               schemaLocation="xmldsig-core-schema.xsd"/>
+    <xs:include schemaLocation="Paises_v100.xsd"/>
+    <xs:include schemaLocation="Monedas_v100.xsd"/>
+    <xs:include schemaLocation="FE_Types_v140.xsd"/>
+
+    <xs:complexType name="tgCOpeDE">
+        <xs:annotation>
+            <xs:documentation>
+                Campos de la operacion del Documento Electronico
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="iTipEmi" type="tiTipEmi"/>
+            <xs:element name="dDesTipEmi" type="tdDesTipEmi"/>
+            <xs:element name="dCodSeg" type="tiCodSe"/>
+            <xs:element name="dInfoEmi" minOccurs="0" type="tdInfoEmi"/>
+            <xs:element name="dInfoFisc" minOccurs="0" type="tdInfoFisc"/>
+            <!-- <xs:element name="iIndPres" type="tiIndPres" minOccurs="0"/>
+            <xs:element name="dDesIndPres" type="tdDesIndPres" minOccurs="0"/>
+            <xs:element name="iTipTra" type="tiTipTra"/>
+            <xs:element name="dDesTiTran" type="tdDesTiTran"/> -->
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="tgDTim">
+        <xs:annotation>
+            <xs:documentation>
+                Campos de datos del timbrado
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="iTiDE" type="tiTiDE"/>
+            <xs:element name="dDesTiDE" type="tdDesTiDE"/>
+            <xs:element name="dNumTim" type="tdNumTim"/>
+            <xs:element name="dEst" type="tdEst"/>
+            <xs:element name="dPunExp" type="tdPunExp"/>
+            <xs:element name="dNumDoc" type="tdNumDoc"/>
+            <xs:element name="dFeIniT" type="tdFeIniT"/>
+            <xs:element name="dFeFinT" type="tdFeFinT"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="tgEmis">
+        <xs:annotation>
+            <xs:documentation>
+                Datos que identifican al emisor
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dRucEm" type="tRuc"/>
+            <xs:element name="dDVEmi" type="tDVer"/>
+            <xs:element name="iTipCont" type="tiTipCont"/>
+            <xs:element name="cTipReg" minOccurs="0" type="tcTipReg"/>
+            <xs:element name="dNomEmi">
+                <xs:annotation>
+                    <xs:documentation>
+                        Nombre o razon social del emisor del DE
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="noEmptyString">
+                        <xs:whiteSpace value="preserve"/>
+                        <xs:minLength value="4"/>
+                        <xs:maxLength value="60"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dNomFanEmi" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Nombre o razon social del emisor del DE
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="noEmptyString">
+                        <xs:whiteSpace value="preserve"/>
+                        <xs:minLength value="4"/>
+                        <xs:maxLength value="60"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dDirEmi">
+                <xs:annotation>
+                    <xs:documentation>
+                        Direccion del local donde se emite el DE
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="noEmptyString">
+                        <xs:minLength value="1"/>
+                        <xs:whiteSpace value="preserve"/>
+                        <xs:maxLength value="150"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dNumCas">
+                <xs:annotation>
+                    <xs:documentation>
+                        Numero de casa
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:totalDigits value="6"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dCompDir1" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Complemento de direccion 1
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="noEmptyString">
+                        <xs:maxLength value="150"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dCompDir2" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Complemento de direccion 2
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="noEmptyString">
+                        <xs:maxLength value="15"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cCiuEmi" type="tcCiuEmi"/>
+            <xs:element name="dDesCiuEmi" type="tdDesCiuEmi"/>
+            <xs:element name="cDisEmi" minOccurs="0" type="tcDisEmi"/>
+            <xs:element name="dDesDisEmi" minOccurs="0" type="tdDesDisEmi"/>
+            <xs:element name="cDepEmi" type="tDepartamentos"/>
+            <xs:element name="dDesDepEmi" type="tDesDepartamento"/>
+            <xs:element name="dTelEmi" type="tdTel"/>
+            <xs:element name="dEmailE" type="tEmail"/>
+            <xs:element name="dDenSuc" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Denominacion interna del emisor
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="noEmptyString">
+                        <xs:maxLength value="30"/>
+                        <xs:minLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cActEco" type="tcActEco"/>
+            <xs:element name="dDesActEco" type="tdDesActEco"/>
+        </xs:sequence>
+    </xs:complexType>
+
+
+    <xs:complexType name="tgDatRec">
+        <xs:sequence>
+            <xs:element name="iNatRec" type="tiNatRec"/>
+            <xs:element name="iTiOpe" type="tiTiOpe"/>
+            <xs:element name="cPaisRec" type="paisType"/>
+            <xs:element name="dDesPaisRe" type="tDesPais"/>
+            <xs:element name="iTiContRec" minOccurs="0" type="tiTipCont"/>
+            <xs:element name="dRucRec" minOccurs="0" type="tRuc"/>
+            <xs:element name="dDVRec" minOccurs="0" type="tDVer"/>
+            <xs:element name="iTipIDRec" minOccurs="0" type="tiTipDoc"/>
+            <xs:element name="dDTipIDRec" minOccurs="0" type="tdDtipDoc"/>
+            <xs:element name="dNumIDRec" minOccurs="0" type="tdNumDocId"/>
+            <xs:element name="dNomRec">
+                <xs:annotation>
+                    <xs:documentation>
+                        Nombre o razon social del receptor del DE
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="noEmptyString">
+                        <xs:maxLength value="60"/>
+                        <xs:minLength value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dNomFanRec" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Nombre o razon social del receptor del DE
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="noEmptyString">
+                        <xs:maxLength value="60"/>
+                        <xs:minLength value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dDirRec" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Direccion del Receptor
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="noEmptyString">
+                        <xs:maxLength value="150"/>
+                        <xs:minLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+
+            <xs:element name="dTelRec" minOccurs="0" type="tdTel"/>
+            <xs:element name="dCelRec" minOccurs="0" type="tdTel"/>
+            <xs:element name="dEmailRec" minOccurs="0" type="tEmail"/>
+            <xs:element name="dCodCliente" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Codigo del Cliente
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:whiteSpace value="collapse"/>
+                        <xs:maxLength value="5"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+<!--     <xs:complexType name="tgCamOC">
+        <xs:annotation>
+            <xs:documentation>
+                Campos inherentes a la operacion comercial
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="gDatGralOpe" type="tgDaGOC"/>
+            <xs:element name="gEmis" type="tgEmis"/>
+            <xs:element name="gDatRec" type="tgDatRec"/>
+        </xs:sequence>
+    </xs:complexType> -->
+
+    <xs:complexType name="tgDaGOC">
+        <xs:annotation>
+            <xs:documentation>
+                Datos generales de la Operacion Comercial
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dFeEmiDE" type="fecUTC"/>
+            <xs:element name="gOpeCom" type="tgOpeCom"/>
+            <xs:element name="gEmis" type="tgEmis"/>
+            <xs:element name="gDatRec" type="tgDatRec"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="tgOpeCom">
+        <xs:annotation>
+            <xs:documentation>
+                Campos inherentes a la operacion comercial
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="iTipTra" type="tiTipTra"/>
+            <xs:element name="dDesTiTran" type="tdDesTiTran"/>
+            <xs:element name="iTImp" type="tiTImp"/>
+            <xs:element name="dDesTImp" type="tdDesTImp"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--Campos que describen el pago de la operacion con tarjeta de credito/debito-->
+    <xs:complexType name="tgPagTarCD">
+        <xs:annotation>
+            <xs:documentation>
+                Campos que describen el pago de la operacion con tarjeta de credito/debito
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="iDenTarj" type="tiDenTarj"/>
+            <xs:element name="dDesDenTarj" type="tdDesDenTarj"/>
+            <xs:element name="dRUCProTar" minOccurs="0" type="tRuc"/>
+            <xs:element name="dDVProTar" minOccurs="0" type="tDVer"/>
+            <xs:element name="iForProPa" type="tiForProPa" minOccurs="0"/>
+            <xs:element name="dNunAuOpe" minOccurs="0" type="tdNunApOpe"/>
+            <xs:element name="dNomTit">
+                <xs:annotation>
+                    <xs:documentation>
+                        Nombre del titular de la tarjeta
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="4"/>
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dNumTarj">
+                <xs:annotation>
+                    <xs:documentation>
+                        Numero de la tarjeta
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:positiveInteger">
+                        <xs:totalDigits value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="tgForPagCon">
+        <xs:annotation>
+            <xs:documentation>
+                Campos que describen la forma de pago de la operacion al contado
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="iTiPago" type="tiTiPago"/>
+            <xs:element name="dDesTiPag" type="tdDesTiPag"/>
+            <xs:element name="dMonTiPag" type="tdMonTiPag"/>
+            <xs:element name="gPagTarCD" minOccurs="0" type="tgPagTarCD"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--Campos que describen el pago de la operacion con cheque-->
+    <xs:complexType name="tgPagCheq">
+        <xs:annotation>
+            <xs:documentation>
+                Campos que describen el pago de la operacion con cheque
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dNumCheq" type="tNumCheq"/>
+            <xs:element name="dBcoEmi">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="4"/>
+                        <xs:maxLength value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--Campos que describen las cuotas-->
+    <xs:complexType name="tgCuotas">
+        <xs:annotation>
+            <xs:documentation>
+                Campos que describen las cuotas
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            
+            <xs:element name="dMonCuota" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Monto de cada cuota
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="14"/>
+                        <xs:fractionDigits value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dVencCuo" minOccurs="0" type="tFecAAAAMMDDguion"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="tgOpeCred">
+        <xs:annotation>
+            <xs:documentation>
+                Campos que describen la operacion a credito
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dNcuotas">
+                <xs:simpleType>
+                    <xs:restriction base="xs:positiveInteger">
+                        <xs:totalDigits value="3"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dMonEntlni" type="tMontoBase"/>
+            <xs:element name="gCuotas" minOccurs="0" maxOccurs="999" type="tgCuotas"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--Campos que describen las informaciones de compras publicas-->
+    <xs:complexType name="tgCompPub">
+        <xs:annotation>
+            <xs:documentation>
+                Campos que describen informaciones de compras publicas
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dModCont" type="tdModCont"/>
+            <xs:element name="dEntCont " type="tdEntCont"/>
+            <xs:element name="dAnoCont" type="tdAnoCont"/>
+            <xs:element name="dSecCont" type="tdSecCont"/>
+            <xs:element name="dFeCodCont" type="tFecAAAAMMDDguion"/>
+        </xs:sequence>
+    </xs:complexType>
+   
+    <xs:complexType name="tgInfTransp">
+        <!--TODO: Realizar la codificacion de esto-->
+        <xs:annotation>
+            <xs:documentation>
+                Campos que describen las informaciones del transporte
+            </xs:documentation>
+        </xs:annotation>
+    </xs:complexType>
+          
+    <!--Campos que componen la factura electronica-->
+    <xs:complexType name="tgCamFE">
+        <xs:annotation>
+            <xs:documentation>
+                Campos que componen la factura electronica
+            </xs:documentation>
+        </xs:annotation>        
+        <xs:sequence>
+        	<xs:element name="iIndPres" type="tiIndPres" minOccurs="0"/>
+        	 <xs:element name="dDesIndPres" type="tdDesIndPres" minOccurs="0"/>
+            <xs:element name="gCompPub" minOccurs="0" type="tgCompPub"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="tgDatMon">
+        <xs:annotation>
+            <xs:documentation>
+                Datos de la moneda
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="iMonOpe" type="cMondT"/>
+            <xs:element name="dDmonOpe" type="xs:NCName"/>
+            <xs:element name="dTipCam" type="tdTipCam"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--Campos de Precio descuentos por item-->
+    <xs:complexType name="tgValorItem">
+        <xs:annotation>
+            <xs:documentation>
+                Campos que describen los precios, descuentos y valor total por item
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dPUniProSer">
+                <xs:annotation>
+                    <xs:documentation>
+                        Precio unitario del producto y/o servicio
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="16"/>
+                        <xs:fractionDigits value="8"/>
+                        <xs:maxInclusive value="99999999.99999999"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dDescItem">
+                <xs:annotation>
+                    <xs:documentation>
+                        Descuento sobre el precio unitario por ítem
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="14"/>
+                        <xs:fractionDigits value="8"/>
+                        <xs:maxInclusive value="999999.99999999"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dPorcDesIt">
+                <xs:annotation>
+                    <xs:documentation>
+                        Porcentaje de descuento por item
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="3"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dTotOpeItem">
+                <xs:annotation>
+                    <xs:documentation>
+                        Valor total de la operacion por item
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="18"/>
+                        <xs:fractionDigits value="8"/>
+                        <xs:maxInclusive value="9999999999.99999999"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--Campos que describen el IVA de la operacion-->
+    <xs:complexType name="tgCamIVA">
+        <xs:annotation>
+            <xs:documentation>
+                Campos que describen el IVA de la operación por ítem
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="iAfecIVA" type="tiAfecIVA"/>
+            <xs:element name="dDesAfecIVA" type="tdDesAfecIVA"/>
+            <xs:element name="dPropIVA" type="tdPropIVA"/>
+            <xs:element name="dTasaIVA" type="tdTasaIVA"/>
+            <xs:element name="dBasGravIVA">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>
+                            Base gravada del IVA por ítem
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="18"/>
+                        <xs:fractionDigits value="8"/>
+                        <xs:maxInclusive value="9999999999.99999999"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dLiqIVAItem">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>
+                            Liquidacion del IVA por ítem
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="17"/>
+                        <xs:fractionDigits value="8"/>
+                        <xs:maxInclusive value="999999999.99999999"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Campos que describen el ISC de la operacion -->
+    <xs:complexType name="tgCamISC">
+        <xs:annotation>
+            <xs:documentation>
+                Campos que describen el ISC de la operacion por ítem
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="cCatISC" type="tcCatISC"/>
+            <xs:element name="dDesCatISC" type="tdDesCatISC"/>
+            <xs:element name="cTasaISC" type="tcTasaISC"/>
+            <xs:element name="dBaseGravISC">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>
+                            Base gravada del ISC por item
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="18"/>
+                        <xs:fractionDigits value="8"/>
+			            <xs:maxInclusive value="9999999999.99999999"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dLiqISCItem">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>
+                            Liquidacion del ISC por item
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="17"/>
+                        <xs:fractionDigits value="8"/>
+                        <xs:maxInclusive value="999999999.99999999"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--Grupo de rastreo de la mercaderia-->
+    <xs:complexType name="tgRasMerc">
+        <xs:annotation>
+            <xs:documentation>
+                Datos de rastreo de la mercaderia
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dNumLote" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:positiveInteger">
+                        <xs:totalDigits value="80"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dVencMerc" minOccurs="0" type="tdFeIniS"/>
+            <xs:element name="dNSerie" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Numero de serie
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="9"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--Sector Automovilistico Vehiculos nuevos-->
+    <xs:complexType name="tgVehNuevo">
+        <xs:annotation>
+            <xs:documentation>
+                Detalle de vehiculos nuevos
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="iTipOpVN" type="tiTipOpVN" minOccurs="0"/>
+            <xs:element name="dDesTipOpVN" type="tdDesTipOpVN" minOccurs="0"/>
+            <xs:element name="dChasis" type="tdChasis" minOccurs="0"/>
+            <xs:element name="dColor" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="10"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dPotencia" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Potencia del motor (CV)
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:positiveInteger">
+                        <xs:totalDigits value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dCapMot" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Capacidad del motor (cc)
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:positiveInteger">
+                        <xs:totalDigits value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dPNet" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Peso Neto (Toneladas)
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="10"/>
+                        <xs:fractionDigits value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dPBruto" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Peso bruto (Toneladas)
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="10"/>
+                        <xs:fractionDigits value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="iTipCom" type="tiTipCom" minOccurs="0"/>
+            <xs:element name="dDesTipCom" type="tdDesTipCom" minOccurs="0"/>
+            <xs:element name="dNroMotor" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Numero de motor
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="21"/>
+                        <xs:minLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dCapTracc" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Capacidad maxima de traccion
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="10"/>
+                        <xs:fractionDigits value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dAnoFab" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Anho de fabricacion
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:positiveInteger">
+                        <xs:pattern value="[0-9]{4}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <!--<xs:element name="iTipoPint" type="tiTipoPint"/>-->
+            <!--<xs:element name="dDesTP" type="tdDesTP"/>-->
+            <xs:element name="cTipVeh" minOccurs="0" type="tcTipVeh"/>
+            <!--<xs:element name="iCondVeh" type="tiCondVeh"/>-->
+            <!--<xs:element name="dDesCondVeh" type="tdDesCondVeh"/>-->
+            <xs:element name="dCapac" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Capacidad maxima de pasajeros sentados
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:positiveInteger">
+                        <xs:totalDigits value="3"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--Sector Energia Electrica-->
+    <xs:complexType name="tgGrupEner">
+        <xs:annotation>
+            <xs:documentation>
+                Grupo del sector de energia electrica
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dNroMed" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Numero de medidor
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="50"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dActiv" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Codigo de actividad
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:totalDigits value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dCateg" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Codigo de actividad
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="3"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dLecAnt" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Lectura anterior
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="13"/>
+                        <xs:fractionDigits value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dLecAct" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Lectura anterior
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="13"/>
+                        <xs:fractionDigits value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dConKwh" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Consumo
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="13"/>
+                        <xs:fractionDigits value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Grupo Sector de Supermercados -->
+    <xs:complexType name="tgGrupSup">
+        <xs:annotation>
+            <xs:documentation>
+                Grupo del sector de supermercados
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dNomCaj" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Nombre del cajero
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dEfectivo" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Efectivo
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="11"/>
+                        <xs:fractionDigits value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dVuelto" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Vuelto
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="10"/>
+                        <xs:fractionDigits value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dDonac" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Monto de la donacion
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="10"/>
+                        <xs:fractionDigits value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dDesDonac" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Descripcion de la donacion
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Grupo sector seguros -->
+    <xs:complexType name="tgGrupSeg">
+        <xs:annotation>
+            <xs:documentation>
+                Datos del sector de seguros
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dCodEmpSeg" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Codigo de la empresa de seguros en la Superintedencia Nacional de Seguros
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dPoliza" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Codigo de la poliza
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dVigencial" type="tdVigPol" minOccurs="0"/>
+            <xs:element name="dNumPoliza" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Numero de poliza
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="17"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--Campos complementarios de uso especifico-->
+    <xs:complexType name="tgCamEsp">
+        <xs:annotation>
+            <xs:documentation>
+                Campos complementarios comerciales de uso especifico
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element minOccurs="0" name="gRasMerc" type="tgRasMerc"/>
+            <xs:element minOccurs="0" name="gVehNuevo" type="tgVehNuevo"/>
+            <xs:element minOccurs="0" name="gGrupEner" type="tgGrupEner"/>
+            <xs:element minOccurs="0" name="gGrupSeg" type="tgGrupSeg"/>
+            <xs:element minOccurs="0" name="gGrupSup" type="tgGrupSup"/>
+            <xs:element minOccurs="0" name="gGrupAdi" type="tgGrupAdi"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--Grupo de datos adicionales de uso comercial-->
+    <xs:complexType name="tgGrupAdi">
+        <xs:annotation>
+            <xs:documentation>
+                Grupo de datos adicionales de uso comercial
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dCiclo" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="6"/>
+                        <xs:maxLength value="15"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dPerDesde" minOccurs="0" type="tdFeIniS"/>
+            <xs:element name="dPerHasta" minOccurs="0" type="tdFeIniS"/>
+            <xs:element name="dVencPag" minOccurs="0" type="tdFeIniS"/>
+            <xs:element name="dContrato" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Numero de contrato
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--Campos que describen los items de la operacion -->
+    <xs:complexType name="tgCamItem">
+        <xs:annotation>
+            <xs:documentation>
+                Campos que describen los items de la operacion
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dCodInt" type="tdCodInt"/>
+            <xs:element name="dParAranc" minOccurs="0" type="tdParAranc"/>
+            <xs:element name="dNCM" minOccurs="0" type="tdNCM"/>
+            <xs:element name="dDncpG" minOccurs="0" type="tdDncpG"/>
+            <xs:element name="dDncpE" minOccurs="0" type="tdDncpE"/>
+            <xs:element name="dGtin" minOccurs="0" type="tdGtin"/>
+            <xs:element name="dGtinPq" minOccurs="0" type="tdGtinPq"/>
+            <xs:element name="dDesProSer">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="120"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cUniMed" type="tcUniMed"/>
+            <xs:element name="dDesUniMed" type="tdDesUniMed"/>
+            <xs:element name="dCantProSer" type="tdCantProSer"/>
+            <xs:element name="dPaisOrig" minOccurs="0" type="paisType"/> 
+            <xs:element name="dDesPaisOrig" minOccurs="0" type="tDesPais"/>
+            
+            <xs:element minOccurs="0" name="dInfItem">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                    	<xs:minLength value="1"/>
+                        <xs:maxLength value="500"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>              
+            <xs:element name="gValorItem" type="tgValorItem" minOccurs="0"/>
+            <xs:element minOccurs="0" name="gCamIVA" type="tgCamIVA"/>
+            <xs:element minOccurs="0" name="gCamISC" type="tgCamISC"/>
+            <xs:element minOccurs="0" name="gCamEsp" type="tgCamEsp"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="tgDtipDe">
+        <xs:annotation>
+            <xs:documentation>
+                Datos especificos por tipo de documento electronico
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="gCamFE" type="tgCamFE" minOccurs="0"/>
+            <xs:element name="gCamFEE" type="tgCamFEE" minOccurs="0"/>
+            <xs:element name="gCamFEI" type="tgCamFEI" minOccurs="0"/>
+            <xs:element name="gCamAE" type="tgCamAE" minOccurs="0"/>
+            <xs:element name="gCamNCDE" type="tgCamNCDE" minOccurs="0"/>
+            <xs:element name="gCamNRE" type="tgCamNRE" minOccurs="0"/>
+            <xs:element name="gCamCond" minOccurs="0" type="tgCamCond"/>
+            <xs:element name="gCamItem" maxOccurs="unbounded" type="tgCamItem"/>
+            <xs:element name="gCamTrans" minOccurs="0" type="tgCamTrans"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--Campos que identifican al transportistas-->
+    <xs:complexType name="tgCamIdTrans">
+        <xs:annotation>
+            <xs:documentation>
+                Campos que identifican al transportistas
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dNatTrans" type="tiNatRec"/>
+            <xs:element name="dNomTrans">
+                <xs:annotation>
+                    <xs:documentation>
+                        Nombre o razon social del transportistas
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="4"/>
+                        <xs:maxLength value="60"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dRucTrans" minOccurs="0" type="tRuc"/>
+            <xs:element name="dDVTrans" minOccurs="0" type="tDVer"/>
+			<xs:element name="iTipIDTrans" minOccurs="0" type="tiTipDoc"/>
+            <xs:element name="dDTipIDTrans" minOccurs="0" type="tdDtipDoc"/>
+            <xs:element name="dNumIDTrans" minOccurs="0" type="tdNumDocId"/>
+            <xs:element name="cNacTrans" minOccurs="0" type="paisType"/>
+			<xs:element name="dDesNacTrans" minOccurs="0" type="tDesPais"/>
+			<xs:element name="dNumIDChof" type="tdNumDocId"/>			
+            <xs:element name="dNomChof">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>
+                            Nombre y apellido del chofer
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="noEmptyString">
+                        <xs:maxLength value="60"/>
+                        <xs:minLength value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--Campos que componen la Nota de credito/Debito Electronica -->
+    <xs:complexType name="tgCamNCDE">
+        <xs:annotation>
+            <xs:documentation>
+                Campos que componen la Nota de credito/Debito Electronica
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="iMotEmi" type="tiMotEmi"/>
+            <xs:element name="dDesMotEmi" type="tdDesMotEmi"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--Campos que componen la nota de remision electronica-->
+    <xs:complexType name="tgCamNRE">
+        <xs:annotation>
+            <xs:documentation>
+                Campos que componen la nora de remision electronica
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="iMotEmiNR" minOccurs="1" type="tiMotivTras"/>
+            <xs:element name="dDesMotEmiNR" minOccurs="1" type="tdDMotivTras"/>
+            <xs:element name="iRespEmiNR" minOccurs="1" type="tiRespEmiNR"/>
+            <xs:element name="dKmR" minOccurs="0">
+            	<xs:annotation>
+		            <xs:documentation>
+		                Kilometros estimados de recorrido
+		            </xs:documentation>
+		        </xs:annotation>
+		        <xs:simpleType>
+			        <xs:restriction base="xs:integer">
+			            <xs:minInclusive value="1"/>
+			            <xs:maxInclusive value="5"/>
+			        </xs:restriction>
+			    </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--Campos que describen el transporte de mercaderias-->
+    <xs:complexType name="tgCamTrans">
+        <xs:annotation>
+            <xs:documentation>
+                Campos que describen el transporte de mercaderias
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="iTipTrans" type="tiTTrans" minOccurs="0"/>
+            <xs:element name="dDesTipTrans" type="tdDesTTrans" minOccurs="0"/>
+            <xs:element name="iModTrans" type="tiModTrans"/>
+            <xs:element name="dDesModTrans" type="tdDesModTrans"/>
+            <xs:element name="iRespFlete" type="tiRespFlete" minOccurs="0"/>
+            <xs:element name="cCondNeg" type="tcCondNeg" minOccurs="0"/>
+            <xs:element name="dNuManif" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Numero de manifiesto de carga/declaracion de transito aduanero
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="15"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>            
+            <xs:element name="dNuDespImp" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Numero de despacho de importación
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="16"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dIniTras" minOccurs="0" type="tdFeIniS"/>
+            <xs:element name="dFinTras" minOccurs="0" type="tdFeIniS"/>
+           <!--  <xs:element name="cPaisDest" minOccurs="0" type="paisType"/> 
+            <xs:element name="dDesPaisDest" minOccurs="0" type="tDesPais"/>-->
+            <xs:element name="gCamSal" minOccurs="0" type="tgCamSal"/>
+            <xs:element name="gCamEnt" minOccurs="0" type="tgCamEnt"/>
+            <xs:element name="gVehTras" minOccurs="0" type="tgVehTras"/>
+            <!--Campos que identifican al transportista(cambiar en manual)-->
+            <xs:element name="gCamIdTrans" minOccurs="0" type="tgCamIdTrans"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--Campos que identifican el vehiculo de traslado de mercaderias-->
+    <xs:complexType name="tgVehTras">
+        <xs:annotation>
+            <xs:documentation>
+                Campos que identifican al vehiculo del traslado de mercaderias
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+        
+            <xs:element name="dTiVehTer" type="tdDesModTrans"/>
+            <xs:element name="dMarVeh">
+                <xs:annotation>
+                    <xs:documentation>
+                        Tipo de vehiculo
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="noEmptyString">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="10"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dNroIDVeh">
+                <xs:annotation>
+                    <xs:documentation>
+                        Tipo de vehiculo
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="noEmptyString">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dAdicVeh" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Tipo de vehiculo
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dNroVuelo" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Tipo de vehiculo
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:length value="6"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--Campos que identifican el local de entrega de las mercaderias-->
+    <xs:complexType name="tgCamEnt">
+        <xs:annotation>
+            <xs:documentation>
+                Campos que identifican el local de salida de las mercaderias
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dDirLocEnt">
+                <xs:annotation>
+                    <xs:documentation>
+                        Direccion del local de la salida
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="noEmptyString">
+                        <xs:maxLength value="150"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dNumCasEnt">
+                <xs:annotation>
+                    <xs:documentation>
+                        Numero de casa
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:totalDigits value="6"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dComp1Ent" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Complemento de direcccion 1 salida
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="150"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dComp2Ent" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Complemento de direcccion 2 salida
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="15"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cCiuEnt" type="tCiudad"/>
+            <xs:element name="dDesCiuEnt" type="tDesCiudad"/>
+            <xs:element name="cDisEnt" minOccurs="0" type="tDistrito"/>
+            <xs:element name="dDesDisEnt" minOccurs="0" type="tDesDistrito"/>
+            <xs:element name="cDepEnt" type="tDepartamentos"/>
+            <xs:element name="dDesDepEnt" type="tDesDepartamento"/>
+            <xs:element name="dTelEnt" minOccurs="0" type="tdTel"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--Campos que identifican el local de salida de las mercaderias-->
+    <xs:complexType name="tgCamSal">
+        <xs:annotation>
+            <xs:documentation>
+                Campos que identifican el local de entrega de las mercaderias
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dDirLocSal">
+                <xs:annotation>
+                    <xs:documentation>
+                        Direccion del local de la entrega
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="150"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dNumCasSal">
+                <xs:annotation>
+                    <xs:documentation>
+                        Numero de casa
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:totalDigits value="6"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dComp1Sal" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Complemento de direcccion 1 salida
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="150"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dComp2Sal" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Complemento de direcccion 2 salida
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="15"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cCiuSal" type="tCiudad"/>
+            <xs:element name="dDesCiuSal" type="tDesCiudad"/>
+            <xs:element name="cDisSal" minOccurs="0" type="tDistrito"/>
+            <xs:element name="dDesDisSal" minOccurs="0" type="tDesDistrito"/>
+            <xs:element name="cDepSal" type="tDepartamentos"/>
+            <xs:element name="dDesDepSal" type="tDesDepartamento"/>
+            <xs:element name="dTelSal" type="tdTel"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--Campos que describen la condición de la operación-->
+    <xs:complexType name="tgCamCond">
+        <xs:annotation>
+            <xs:documentation>
+                Campos que describen la condición de la operación
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="iCondOpe" minOccurs="0" type="tiCondOpe"/>
+            <xs:element name="dDCondOpe" minOccurs="0" type="tdDCondOpe"/>
+            <xs:element name="gPagCont" minOccurs="0" maxOccurs="99" type="tgPagCont"/>
+            <xs:element name="gPagCred" minOccurs="0" type="tgPagCred"/>              
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!--Campos que describen la forma de pago al contado-->
+    <xs:complexType name="tgPagCont">    
+        <xs:annotation>
+            <xs:documentation>
+                Campos que describen la forma de pago al contado
+            </xs:documentation>
+        </xs:annotation>
+    
+        <xs:sequence>
+            <xs:element name="iTiPago" type="tiTiPago"/>
+            <xs:element name="dDesTiPag" type="tdDesTiPag"/>
+            <xs:element name="dMonTiPag">
+                <xs:annotation>
+                    <xs:documentation>
+                        Monto por tipo de pago
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="14"/>
+                        <xs:fractionDigits value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="iMoneda" type="cMondT"/>
+            <xs:element name="dDMoneda">
+                <xs:annotation>
+                    <xs:documentation>
+                        Descripcion de la moneda de operacion
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="3"/>
+                        <xs:maxLength value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dTipCam" maxOccurs="1" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Tipo de cambio
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="9"/>
+                        <xs:fractionDigits value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="gPagTarCD" minOccurs="0" maxOccurs="15" type="tgPagTarCD"/>
+            <xs:element name="gPagCheq" minOccurs="0" maxOccurs="15" type="tgPagCheq"/>
+        </xs:sequence>      
+        
+    </xs:complexType>
+    
+    <!--Campos que describen la forma de pago a crédito-->
+    <xs:complexType name="tgPagCred">
+        <xs:annotation>
+            <xs:documentation>
+                Campos que describen la forma de pago a crédito
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+        
+            <xs:element name="dCondCred" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Condicion de la operacion de credito
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="2"/>
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <!--TODO Ver para mejorar la descripcion del plazo de credito o normalizarlo a una unidad
+            estandar para mayor facilidad de evaluacion-->
+            <xs:element name="dPlazoCre" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Plazo del credito
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="2"/>
+                        <xs:maxLength value="15"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            
+            <xs:element name="dCuotas">
+                <xs:simpleType>
+                    <xs:restriction base="xs:positiveInteger">
+                        <xs:totalDigits value="3"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            
+            <xs:element name="dMonEnt" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Monto de la entrega inicial
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="14"/>
+                        <xs:fractionDigits value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            
+            <xs:element name="iMonCred" maxOccurs="unbounded" type="cMondT"/>
+            <xs:element name="dDMonCred" maxOccurs="unbounded">
+                <xs:annotation>
+                    <xs:documentation>
+                        Descripcion de la moneda de operacion
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="3"/>
+                        <xs:maxLength value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dTipCamCred" maxOccurs="unbounded" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Tipo de cambio
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="9"/>
+                        <xs:fractionDigits value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            
+            <xs:element name="gCuotas" minOccurs="0" maxOccurs="unbounded" type="tgCuotas"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!--Campos que componen la Autofatura electronica-->
+    <xs:complexType name="tgCamAE">
+        <xs:annotation>
+            <xs:documentation>
+                Campos que componen la Autofatura electronica
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dTipCons" type="tdTipCons"/>
+            <xs:element name="dNumCons">
+                <xs:annotation>
+                    <xs:documentation>
+                        Numero de constancia
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:positiveInteger">
+                        <xs:pattern value="[0-9]{11}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dNumControl">
+                <xs:annotation>
+                    <xs:documentation>
+                        Numero de control
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:positiveInteger">
+                        <xs:pattern value="[0-9]{8}"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dTipDocVen" type="tiTipDoc"/>
+            <xs:element name="dDTipDocVen" type="tdDtipDoc"/>
+            <xs:element name="dIdenVen" type="tdNumDocId"/>
+            <xs:element name="dNomVen">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>
+                            Nombre del vendedor
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="noEmptyString">
+                        <xs:maxLength value="60"/>
+                        <xs:minLength value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dDirVen">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>
+                            Direccion del vendedor
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="noEmptyString">
+                        <xs:maxLength value="150"/>
+                        <xs:minLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dNumCasVen">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>
+                            Numero de casa del vendedor
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:integer">
+                        <xs:totalDigits value="6"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cCiuVen" type="tCiudad"/>
+            <xs:element name="dDesCiuVen" type="tDesCiudad"/>
+            <xs:element name="cDisVen" minOccurs="0" type="tDistrito"/>
+            <xs:element name="dDesDisVen" minOccurs="0" type="tDesDistrito"/>
+            <xs:element name="cDepVen" type="tDepartamentos"/>
+            <xs:element name="dDesDepVen" type="tDesDepartamento"/>
+            <xs:element name="dDirProv">
+                <xs:annotation>
+                    <xs:documentation>
+                        Direccion donde se provee el servicio o producto
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="noEmptyString">
+                        <xs:maxLength value="150"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="cCiuProv" type="tCiudad"/>
+            <xs:element name="dDesCiuProv" type="tDesCiudad"/>
+            <xs:element name="cDisProv" type="tDistrito"/>
+            <xs:element name="dDesDisProv" type="tDesDistrito"/>
+            <xs:element name="cDepProv" type="tDepartamentos"/>
+            <xs:element name="dDesDepProv" type="tDesDepartamento"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--Campos que componen la factura electronica de importacion -->
+    <xs:complexType name="tgCamFEI">
+        <xs:annotation>
+            <xs:documentation>
+                Campos que componen la factura electronica de importacion
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="cTipRegImp" type="tcTipRegAdu"/>
+            <xs:element name="dPuLleg">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>
+                            Puerto de llegada
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="noEmptyString">
+                        <xs:minLength value="5"/>
+                        <xs:maxLength value="50"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dNuDesp">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>
+                            Numero de despacho
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="noEmptyString">
+                        <xs:maxLength value="16"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dFecDesp" type="tFecAAAAMMDDguion"/>
+            <xs:element name="dNomDesp">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>
+                            Nombre del despachante
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="noEmptyString">
+                        <xs:maxLength value="60"/>
+                        <xs:minLength value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dRucDesp" type="tRuc"/>
+            <xs:element name="dDVDesp" type="tDVer"/>
+            <xs:element name="dPaisProd" type="paisType"/>
+            <xs:element name="dDesPaisProd" type="tDesPais"/>
+            <xs:element name="dNomVen">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>
+                            Nombre del vendedor
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="noEmptyString">
+                        <xs:maxLength value="30"/>
+                        <xs:minLength value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dValorInv">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>
+                            Valor factura invoice
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="12"/>
+                        <xs:fractionDigits value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dValorFle">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>
+                            Valor flete
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="10"/>
+                        <xs:fractionDigits value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dValorSeg">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>
+                            Valor seguro
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="10"/>
+                        <xs:fractionDigits value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dValorImpGs">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>
+                            Valor imponible en guaranies
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:integer">
+                        <xs:totalDigits value="10"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dDerAdu">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>
+                            Derecho Aduanero
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="12"/>
+                        <xs:fractionDigits value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dIndi">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>
+                            INDI
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="12"/>
+                        <xs:fractionDigits value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dSerValor">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>
+                            Servicio de valoracion
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="12"/>
+                        <xs:fractionDigits value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dIVAImp">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>
+                            IVA
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="12"/>
+                        <xs:fractionDigits value="4"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dTasaIntAd">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>
+                            IVA
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:integer">
+                        <xs:totalDigits value="2"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--Campos que componen la factura electronica de exportacion-->
+    <xs:complexType name="tgCamFEE">
+        <xs:annotation>
+            <xs:documentation>
+                Campos que componen la factura electronica de exportacion
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="iFleExp" type="paisType"/>
+            <xs:element name="dDesFleExp" type="tDesPais"/>
+            <xs:element name="dPuEmb">
+                <xs:annotation>
+                    <xs:documentation>
+                        Puerto de embarque
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="noEmptyString">
+                        <xs:minLength value="5"/>
+                        <xs:maxLength value="30"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Campos que describen los subtotales y totales de la transaccion documentada -->
+    <xs:complexType name="tgTotSub">
+        <xs:annotation>
+            <xs:documentation>
+                Campos de subtotales y totales
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dSubExe" minOccurs="0" type="tMontoBase"/>
+            <xs:element name="dSubExo" minOccurs="0" type="tMontoBase"/>
+            <xs:element name="dSubVta5" minOccurs="0" type="tMontoBase"/>
+            <xs:element name="dSubVta10" minOccurs="0" type="tMontoBase"/>
+            <xs:element name="dSubISC" minOccurs="0" type="tMontoBase"/>
+            <xs:element name="dTotVtasDesc">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>
+                            Total de la operacion
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="20"/>
+                        <xs:fractionDigits value="8"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dTotDesc">
+                <xs:simpleType>
+                    <xs:annotation>
+                        <xs:documentation>
+                            Total descuento por item
+                        </xs:documentation>
+                    </xs:annotation>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="15"/>
+                        <xs:fractionDigits value="8"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dPorcDescTotal">
+                <xs:annotation>
+                    <xs:documentation>
+                        Porcentaje de descuento sobre total de la operacion
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="3"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dDescTotal">
+                <xs:annotation>
+                    <xs:documentation>
+                        Descuento sobre total de la operacion
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="16"/>
+                        <xs:fractionDigits value="8"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dAnticipo">
+                <xs:annotation>
+                    <xs:documentation>
+                        Monto de anticipo
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="18"/>
+                        <xs:fractionDigits value="8"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dRedon" type="tdCRed"/>
+            <xs:element name="dTotOpe">
+                <xs:annotation>
+                    <xs:documentation>
+                        Total general de la operacion
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="21"/>
+                        <xs:fractionDigits value="8"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dIVA5" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Liquidacion del IVA a la tasa del 5%
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="18"/>
+                        <xs:fractionDigits value="8"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dIVA10" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Liquidacion del IVA a la tasa del 10%
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="18"/>
+                        <xs:fractionDigits value="8"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dTotIVA" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Liquidacion total del IVA
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="19"/>
+                        <xs:fractionDigits value="8"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dBaseGrav5" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Total base gravada de la tasa del 5%
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="19"/>
+                        <xs:fractionDigits value="8"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dBaseGrav10" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Total base gravada de la tasa del 10%
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="19"/>
+                        <xs:fractionDigits value="8"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dTBasGraIVA" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Total base gravada del IVA
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="20"/>
+                        <xs:fractionDigits value="8"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dLTotISC" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Liquidacion total del ISC
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="19"/>
+                        <xs:fractionDigits value="8"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dBaseGravISC" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Base gravada del ISC
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="20"/>
+                        <xs:fractionDigits value="8"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dTotalGs" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Total general de la operacion en Guaranies
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="23"/>
+                        <xs:fractionDigits value="8"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dTotCom" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Total + comisión
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="21"/>
+                        <xs:fractionDigits value="8"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dComi" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Comisión
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="16"/>
+                        <xs:fractionDigits value="8"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dIVAComi" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        IVA de la comisión
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:decimal">
+                        <xs:totalDigits value="14"/>
+                        <xs:fractionDigits value="8"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="tgInfPed">
+        <xs:annotation>
+            <xs:documentation>
+                Informacion del pedido comercial relacionado a la factura
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dConPed" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Control de pedido de compra
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="20"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dInfInt" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Informacion de interes del emisor con respecto al pedido de compra
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="0"/>
+                        <xs:maxLength value="500"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="tDE">
+        <xs:annotation>
+            <xs:documentation>
+                Datos del documento electronico
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dDVId" minOccurs="1" type="tDVer"/>
+            <xs:element name="gOpeDE" type="tgCOpeDE"/>
+            <xs:element name="gDTim" type="tgDTim"/>
+            <xs:element name="gDatGralOpe" type="tgDaGOC"/>
+            <xs:element name="gDtipDe" type="tgDtipDe"/>
+            <xs:element minOccurs="0" name="gTotSub" type="tgTotSub"/>
+            <xs:element minOccurs="0" name="gCamGen" type="tgCamGen"/>
+            <xs:element minOccurs="0" maxOccurs="99" name="gCamDEAsoc" type="tgCamDEAsoc"/>   
+            <xs:element name="dFecFirma" type="fecUTC"/>         
+        </xs:sequence>
+        <!--CDC pasa a ser atributo del rDE-->
+        <xs:attribute name="Id" type="tCDC" use="required"/>
+    </xs:complexType>
+
+    <!-- Campos que identifican al documento asociado -->
+    <xs:complexType name="tgCamDEAsoc">
+        <xs:annotation>
+            <xs:documentation>
+                Cmapos que identifican al DE asociado
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="iTipDocAso" type="tiTipDocAso"/>
+            <xs:element name="dDesTipDocAso" type="tdDesTipDocAso"/>
+            <xs:element name="dCdCDERef" type="tCDC" minOccurs="0"/>
+            <xs:element name="dNumgTimDI" type="tdNumTim" minOccurs="0"/>
+            <xs:element name="dEstDocAso" type="tdEst" minOccurs="0"/>
+            <xs:element name="dPexpDocAso" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Punto de expedicion
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:totalDigits value="3"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dNumDocAso" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Numero del documento
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:totalDigits value="7"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="iTipoDocAso" type="tiTIpoDoc" minOccurs="0"/>
+            <xs:element name="dDTipoDocAso" type="tdDesTIpoDoc" minOccurs="0"/>
+            <xs:element name="dFecDocImp" type="tdFeIniS" minOccurs="0"/>
+            <xs:element name="dNumComRet" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Numero de comprobante de retencion
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="15"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dNumResCF" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Numero de resolucion de Credito Fiscal
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:maxLength value="15"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Campos de uso general -->
+    <xs:complexType name="tgCamGen">
+        <xs:annotation>
+            <xs:documentation>
+                Campos de uso general
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dOrdCompra" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Numero de orden de compra
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="6"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dOrdVta" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Numero de orden de venta
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="6"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dAsiento" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Numero de asiento contable
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="5"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="tgCamFuFD">
+        <xs:annotation>
+            <xs:documentation>
+                Campos fuera de la firma digital
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="dCarQR">
+                <xs:annotation>
+                    <xs:documentation>
+                        Caracteres correspondiente al codigo QR
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="100"/>
+                        <xs:maxLength value="600"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="dInfAdic" minOccurs="0">
+                <xs:annotation>
+                    <xs:documentation>
+                        Informacion adicional de interes para el emisor
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                        <xs:maxLength value="5000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="rDE">
+        <xs:sequence>
+            <xs:element name="dVerfor" type="tVerFor"/>
+            <xs:element name="DE" type="tDE"/>
+            <xs:element ref="ds:Signature">
+                <xs:annotation>
+                    <xs:documentation>
+                        Firma Digital del DE
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="gCamFuFD" type="tgCamFuFD" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
