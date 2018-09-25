@@ -134,8 +134,8 @@
         <xs:restriction base="xs:string">
             <xs:minLength value="6"/>
             <xs:maxLength value="12"/>
-            <xs:enumeration value="NORMAL"/>
-            <xs:enumeration value="CONTINGENCIA"/>
+            <xs:enumeration value="Normal"/>
+            <xs:enumeration value="Contingencia"/>
         </xs:restriction>
     </xs:simpleType>
 
@@ -167,6 +167,8 @@
             <xs:enumeration value="2"/>
             <xs:enumeration value="3"/>
             <xs:enumeration value="4"/>
+            <xs:enumeration value="5"/>
+            <xs:enumeration value="9"/>
         </xs:restriction>
     </xs:simpleType>
 
@@ -183,17 +185,20 @@
                     <xs:enumeration
                             value="Operación presencial"/>
                     <xs:enumeration
-                            value="Operación por internet"/>
+                            value="Operación electrónica"/>
                     <xs:enumeration
                             value="Operación telemarketing"/>
                     <xs:enumeration
                             value="Venta a domicilio"/>
+                    <xs:enumeration
+                            value="Operación bancaria"/>
                 </xs:restriction>
             </xs:simpleType>
             <xs:simpleType>
                 <xs:restriction base="xs:string">
-                    <xs:minLength value="10"/>
+                    <xs:minLength value="5"/>
                     <xs:maxLength value="30"/>
+                    <xs:pattern value="[0-9a-zA-Z ]+.*"
                 </xs:restriction>
             </xs:simpleType>
         </xs:union>
@@ -237,9 +242,9 @@
             <xs:enumeration value="Venta de activo fijo"/>
             <xs:enumeration value="Venta de divisas"/>
             <xs:enumeration value="Compra de divisas"/>
-            <xs:enumeration value="Promociones o entrega de muestras"/>
-            <xs:enumeration value="Donaciones"/>
-            <xs:enumeration value="Anticipos"/>
+            <xs:enumeration value="Promoción o entrega de muestras"/>
+            <xs:enumeration value="Donación"/>
+            <xs:enumeration value="Anticipo"/>
             <xs:enumeration value="Compra de productos"/>
             <xs:enumeration value="Compra de servicios"/>
             <xs:enumeration value="Venta de crédito fiscal"/>
@@ -329,10 +334,10 @@
                 </xs:restriction>
             </xs:simpleType>
             <xs:simpleType>
-                <!--HOMOLOGACION-->
+                <!--PRUEBAS-->
                 <xs:restriction base="xs:integer">
                     <xs:totalDigits value="8"/>
-                    <xs:pattern value="[9][0-9]{7}"/>
+                    <xs:pattern value="00000001"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:union>
@@ -372,7 +377,7 @@
         </xs:annotation>
         <xs:restriction base="xs:string">
             <xs:minLength value="7"/>
-            <xs:pattern value="[1-9][0-9][0-9][0-9][0-9][0-9][0-9]"/>
+            <xs:pattern value="[0-9][0-9][0-9][0-9][0-9][0-9][0-9]"/>
         </xs:restriction>
     </xs:simpleType>
 
@@ -384,8 +389,9 @@
                 Numero de documento de identidad
             </xs:documentation>
         </xs:annotation>
-        <xs:restriction base="xs:integer">
-            <xs:pattern value="[0-9]{1,20}"/>
+        <xs:restriction base="noEmptyString">
+            <xs:maxLength value="20"/>
+            <xs:minLength value="1"/>
         </xs:restriction>
     </xs:simpleType>
 
@@ -409,7 +415,7 @@
             </xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:date">
-            <xs:minExclusive value="2020-05-31"/>
+            <xs:maxExclusive value="2025-12-31"/>
         </xs:restriction>
     </xs:simpleType>
 
@@ -433,7 +439,7 @@
             </xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:dateTime">
-            <xs:pattern value="\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d[+|-]\d\d:\d\d"/>
+            <xs:pattern value="\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d"/>
         </xs:restriction>
     </xs:simpleType>
     
@@ -463,7 +469,7 @@
         </xs:annotation>
         <xs:restriction base="xs:string">
             <xs:minLength value="3"/>
-            <xs:maxLength value="15"/>
+            <!--xs:maxLength value="15"/-->
             <xs:enumeration value="IVA">
                 <xs:annotation>
                     <xs:documentation>
@@ -512,7 +518,8 @@
     <!-- RUC -->
     <xs:simpleType name="tRuc">
         <xs:restriction base="xs:string">
-            <xs:minLength value="8"/>
+            <xs:minLength value="5"/>
+            <xs:maxLength value="8"/>
             <xs:pattern value="[0-9]{7}[0-9A-D]?"/>
         </xs:restriction>
     </xs:simpleType>
@@ -548,14 +555,15 @@
             </xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:integer">
-            <xs:enumeration value="01"/>
-            <xs:enumeration value="02"/>
-            <xs:enumeration value="03"/>
-            <xs:enumeration value="04"/>
-            <xs:enumeration value="05"/>
-            <xs:enumeration value="06"/>
-            <xs:enumeration value="07"/>
-            <xs:enumeration value="08"/>
+            <xs:pattern value="[0-9]|[0-9][0-9]"/>
+            <xs:enumeration value="1"/>
+            <xs:enumeration value="2"/>
+            <xs:enumeration value="3"/>
+            <xs:enumeration value="4"/>
+            <xs:enumeration value="5"/>
+            <xs:enumeration value="6"/>
+            <xs:enumeration value="7"/>
+            <xs:enumeration value="8"/>
         </xs:restriction>
     </xs:simpleType>
 
@@ -720,7 +728,21 @@
     <!-- Telefono del emisor -->
     <xs:simpleType name="tdTel">
         <xs:restriction base="xs:integer">
-            <xs:pattern value="\d{6,10}"/>
+            <xs:pattern value="[0-9]{8,15}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Telefono del receptor -->
+    <xs:simpleType name="tdTelRec">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{8,15}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Celular del receptor -->
+    <xs:simpleType name="tdCelRec">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{10,20}"/>
         </xs:restriction>
     </xs:simpleType>
 
@@ -797,6 +819,22 @@
         </xs:restriction>
     </xs:simpleType>
 
+    <!-- Tipo documento identidad del vendedor-->
+    <xs:simpleType name="tiTipIDVen">
+        <xs:annotation>
+            <xs:documentation>
+                Tipo de documento
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:integer">
+            <xs:whiteSpace value="collapse"/>
+            <xs:enumeration value="1"/>
+            <xs:enumeration value="2"/>
+            <xs:enumeration value="3"/>
+            <xs:enumeration value="4"/>
+        </xs:restriction>
+    </xs:simpleType>
+
     <!-- Descripcion de tipo de documento -->
     <xs:simpleType name="tdDtipDoc">
         <xs:annotation>
@@ -810,6 +848,21 @@
             <xs:enumeration value="Cédula extranjera"/>
             <xs:enumeration value="Carnet de residencia"/>
             <xs:enumeration value="Innominado"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Descripcion de tipo de documento del vendedor-->
+    <xs:simpleType name="tdDtipIDVen">
+        <xs:annotation>
+            <xs:documentation>
+                Descripcion del tipo de documento
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Cédula paraguaya"/>
+            <xs:enumeration value="Pasaporte"/>
+            <xs:enumeration value="Cédula extranjera"/>
+            <xs:enumeration value="Carnet de residencia"/>
         </xs:restriction>
     </xs:simpleType>
 
@@ -882,7 +935,8 @@
             <xs:enumeration value="14"/>
             <!-- Compensaciones-->
             <xs:enumeration value="15"/>
-            <!-- Permuta-->
+            <!-- Pago Bancario-->
+            <xs:enumeration value="16"/>
             
         </xs:restriction>
     </xs:simpleType>
@@ -897,19 +951,20 @@
         	<xs:restriction base="xs:string">
             	<xs:enumeration value="Efectivo"/>
                 <xs:enumeration value="Cheque"/>
-                <xs:enumeration value="Tarjeta de Crédito"/>
-                <xs:enumeration value="Tarjeta de Débito"/>
+                <xs:enumeration value="Tarjeta de crédito"/>
+                <xs:enumeration value="Tarjeta de débito"/>
                 <xs:enumeration value="Transferencia"/>
-                <xs:enumeration value="Giros"/>
-                <xs:enumeration value="Billetera Electrónica"/>
-                <xs:enumeration value="Tarjetas Empresariales"/>
-                <xs:enumeration value="Vales"/>
-                <xs:enumeration value="Retenciones"/>
-                <xs:enumeration value="Anticipos"/>
-                <xs:enumeration value="Valores Fiscales"/>
-                <xs:enumeration value="Valores Comerciales"/>
-                <xs:enumeration value="Compensaciones"/>
+                <xs:enumeration value="Giro"/>
+                <xs:enumeration value="Billetera electrónica"/>
+                <xs:enumeration value="Tarjeta empresarial"/>
+                <xs:enumeration value="Vale"/>
+                <xs:enumeration value="Retención"/>
+                <xs:enumeration value="Anticipo"/>
+                <xs:enumeration value="Valor Fiscal"/>
+                <xs:enumeration value="Valor Comercial"/>
+                <xs:enumeration value="Compensación"/>
                 <xs:enumeration value="Permuta"/>
+                <xs:enumeration value="Pago bancario"/>
             </xs:restriction>
     </xs:simpleType>
 
@@ -998,6 +1053,23 @@
             <!-- POS-->
             <xs:enumeration value="2"/>
             <!-- Pago Electronico (Ej. Compras por Internet)-->
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Condición del tipo de cambio -->
+    <!--<xs:element name="tdCondTiCam">-->
+    <xs:simpleType name="tdCondTiCam">
+        <xs:annotation>
+            <xs:documentation>
+                Condición del tipo de cambio 1(Global), 2(Por Item)
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:short">
+            <xs:totalDigits value="1"/>
+            <xs:enumeration value="1"/>
+            <!-- GLOBAL-->
+            <xs:enumeration value="2"/>
+            <!-- POR ITEM-->
         </xs:restriction>
     </xs:simpleType>
 
@@ -1766,16 +1838,15 @@
                 Motivo de emision de la nota de credito/debito electronica
             </xs:documentation>
         </xs:annotation>
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="01"/>
-            <xs:enumeration value="02"/>
-            <xs:enumeration value="03"/>
-            <xs:enumeration value="04"/>
-            <xs:enumeration value="05"/>
-            <xs:enumeration value="06"/>
-            <xs:enumeration value="07"/>
-            <xs:enumeration value="08"/>
-            <xs:enumeration value="09"/>
+        <xs:restriction base="xs:integer">
+            <xs:enumeration value="1"/>
+            <xs:enumeration value="2"/>
+            <xs:enumeration value="3"/>
+            <xs:enumeration value="4"/>
+            <xs:enumeration value="5"/>
+            <xs:enumeration value="6"/>
+            <xs:enumeration value="7"/>
+            <xs:enumeration value="8"/>
         </xs:restriction>
     </xs:simpleType>
 
@@ -1788,14 +1859,13 @@
         </xs:annotation>
         <xs:restriction base="xs:string">
             <xs:enumeration value="Anulacion"/>
-            <xs:enumeration value="Anulacion parcial"/>
             <xs:enumeration value="Devolucion"/>
-            <xs:enumeration value="Descuentos"/>
-            <xs:enumeration value="Bonificaciones"/>
-            <xs:enumeration value="Creditos incobrables"/>
-            <xs:enumeration value="Decomiso"/>
+            <xs:enumeration value="Descuento"/>
+            <xs:enumeration value="Bonificación"/>
+            <xs:enumeration value="Crédito incobrable"/>
             <xs:enumeration value="Recupero de costo"/>
             <xs:enumeration value="Recupero de gasto"/>
+            <xs:enumeration value="Ajuste de precio"/>
         </xs:restriction>
     </xs:simpleType>
 
@@ -1820,6 +1890,7 @@
             <xs:enumeration value="11"/>
             <xs:enumeration value="12"/>
             <xs:enumeration value="13"/>
+            <xs:enumeration value="14"/>
         </xs:restriction>
     </xs:simpleType>
 
@@ -1833,19 +1904,20 @@
         <xs:union>
             <xs:simpleType>
                 <xs:restriction base="xs:string">
-                    <xs:enumeration value="Ventas"/>
-                    <xs:enumeration value="Consignacion"/>
-                    <xs:enumeration value="Exportacion"/>
-                    <xs:enumeration value="Compra"/>
-                    <xs:enumeration value="Importacion"/>
-                    <xs:enumeration value="Devolucion"/>
+                    <xs:enumeration value="Traslado por venta"/>
+                    <xs:enumeration value="Traslado por consignación"/>
+                    <xs:enumeration value="Exportación"/>
+                    <xs:enumeration value="Traslado por compra"/>
+                    <xs:enumeration value="Importación"/>
+                    <xs:enumeration value="Traslado por devolución"/>
                     <xs:enumeration value="Traslado entre locales de la empresa"/>
                     <xs:enumeration value="Traslado de bienes por transformación"/>
-                    <xs:enumeration value="Traslado de bienes para reparacion"/>
+                    <xs:enumeration value="Traslado de bienes para reparación"/>
                     <xs:enumeration value="Traslado por emisor móvil"/>
-                    <xs:enumeration value="Exhibición o Demostración"/>
+                    <xs:enumeration value="Exhibición o demostración"/>
                     <xs:enumeration value="Participación en ferias"/>
-                    <xs:enumeration value="Traslado de encomiendas"/>                    
+                    <xs:enumeration value="Traslado de encomienda"/>   
+                    <xs:enumeration value="Decomiso"/>                   
                 </xs:restriction>
             </xs:simpleType>
             <xs:simpleType>
